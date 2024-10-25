@@ -2,22 +2,26 @@ import React from 'react'
 import { View, StyleSheet, Image, ImageSourcePropType, Pressable } from 'react-native'
 import AppText from './AppText';
 import colors from '@/constants/Colors';
-import { GestureHandlerRootView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Href, Link } from 'expo-router';
+
+const BASE_URL = process.env.EXPO_PUBLIC_BASE_URL
 
 interface Props {
     title: string;
     subtitle: string;
     href: Href;
-    image: ImageSourcePropType
+    imageUrl: string
 }
 
-export default function Card({ title, subtitle, image, href }: Props) {
+export default function Card({ title, subtitle, imageUrl, href }: Props) {
     return (
         <Link href={href} asChild>
             <Pressable>
                 <View style={styles.card}>
-                    <Image style={styles.image} source={image} />
+                    <Image
+                        style={styles.image}
+                        source={{ uri: imageUrl }}
+                    />
                     <View style={styles.detailsContainer}>
                         <AppText style={styles.title} text={title} />
                         <AppText style={styles.subtitle} text={subtitle} />
@@ -25,7 +29,6 @@ export default function Card({ title, subtitle, image, href }: Props) {
                 </View>
             </Pressable>
         </Link>
-
     )
 }
 
