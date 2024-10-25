@@ -17,7 +17,8 @@ export default function Icon({ name, size = 40, backgroundColor = "black", iconC
             borderRadius: size / 2,
             backgroundColor,
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
+            marginRight: 10
         }}>
             <MaterialCommunityIcons
                 name={name}

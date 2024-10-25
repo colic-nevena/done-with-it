@@ -1,23 +1,31 @@
 import React from 'react'
-import { View, StyleSheet, Image, ImageSourcePropType } from 'react-native'
+import { View, StyleSheet, Image, ImageSourcePropType, Pressable } from 'react-native'
 import AppText from './AppText';
 import colors from '@/constants/Colors';
+import { GestureHandlerRootView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { Href, Link } from 'expo-router';
 
 interface Props {
     title: string;
     subtitle: string;
+    href: Href;
     image: ImageSourcePropType
 }
 
-export default function Card({ title, subtitle, image }: Props) {
+export default function Card({ title, subtitle, image, href }: Props) {
     return (
-        <View style={styles.card}>
-            <Image style={styles.image} source={image} />
-            <View style={styles.detailsContainer}>
-                <AppText style={styles.title} text={title} />
-                <AppText style={styles.subtitle} text={subtitle} />
-            </View>
-        </View>
+        <Link href={href} asChild>
+            <Pressable>
+                <View style={styles.card}>
+                    <Image style={styles.image} source={image} />
+                    <View style={styles.detailsContainer}>
+                        <AppText style={styles.title} text={title} />
+                        <AppText style={styles.subtitle} text={subtitle} />
+                    </View>
+                </View>
+            </Pressable>
+        </Link>
+
     )
 }
 

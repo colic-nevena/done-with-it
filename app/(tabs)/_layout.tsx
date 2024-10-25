@@ -1,22 +1,22 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import colors from '@/constants/Colors';
+import NewListingButton from '@/components/NewListingButton';
+import { Routes } from '@/constants/Routes';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: colors.primary,
         headerShown: false,
+        tabBarStyle: { paddingBottom: 5 }
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: 'Listings',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
           ),
@@ -25,6 +25,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="add"
         options={{
+          tabBarButton: () => <NewListingButton href={{ pathname: Routes.ADD_LISTING }} />,
           title: 'Add Listing',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'add-circle' : 'add-circle-outline'} color={color} />

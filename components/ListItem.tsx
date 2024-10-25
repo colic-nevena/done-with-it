@@ -8,19 +8,22 @@ import colors from '@/constants/Colors';
 
 interface Props {
     title: string;
-    subtitle: string;
-    image: ImageSourcePropType;
+    subtitle?: string;
+    image?: ImageSourcePropType;
+    Icon?: React.ReactNode,
     onPress?: () => void;
     renderRightActions?: (progressAnimatedValue: any, dragAnimatedValue: any, swipeable: Swipeable) => ReactNode
 }
 
-export default function ListItem({ title, subtitle, image, onPress, renderRightActions }: Props) {
+export default function ListItem({ title, subtitle, image, onPress, renderRightActions, Icon }: Props) {
     return (
-        <GestureHandlerRootView>
+        <GestureHandlerRootView style={{ flex: 0 }}>
             <Swipeable renderRightActions={renderRightActions}>
                 <TouchableHighlight onPress={onPress} underlayColor={colors.white}>
 
                     <View style={styles.container}>
+                        {Icon}
+
                         {image && <Image source={image} style={styles.image} />}
 
                         <View style={styles.detailsContainer}>
@@ -40,14 +43,15 @@ export default function ListItem({ title, subtitle, image, onPress, renderRightA
 const styles = StyleSheet.create({
     detailsContainer: {
         flex: 1,
-        marginLeft: 10,
+        marginLeft: 5,
         justifyContent: "center"
     },
     container: {
         flexDirection: "row",
-        padding: 15,
+        padding: 10,
         backgroundColor: colors.white,
-        alignItems: "center"
+        alignItems: "center",
+
     },
     image: {
         width: 70,
@@ -56,9 +60,10 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     title: {
-        fontWeight: "500"
+        fontWeight: "500",
+        fontSize: 16
     },
     subtitle: {
-        color: colors.mediumGrey
+        color: colors.mediumGrey,
     }
 })
