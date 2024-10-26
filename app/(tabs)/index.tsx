@@ -28,7 +28,8 @@ export default function ListingsScreen() {
           <Card
             title={item.title}
             subtitle={"$" + item.price}
-            imageUrl={item.images[0]?.url || "https://picsum.photos/200/300"}
+            imageUrl={item.images[0].url}
+            thumbnailUrl={item.images[0].thumbnailUrl}
             href={{
               pathname: Routes.LISTING_DETAILS,
               params: { id: item.id.toString() }

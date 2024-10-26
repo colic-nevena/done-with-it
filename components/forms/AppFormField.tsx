@@ -31,9 +31,9 @@ export default function AppFormField({
     keyboardType,
     multiline,
     numberOfLines,
-    width
+    width,
 }: AppFormFieldProps) {
-    const { handleChange, setFieldTouched, errors, touched } = useFormikContext<any>();
+    const { setFieldTouched, errors, touched, setFieldValue, values } = useFormikContext<any>();
 
     return (
         <>
@@ -49,7 +49,8 @@ export default function AppFormField({
                 multiline={multiline || false}
                 width={width}
                 numberOfLines={multiline && numberOfLines ? numberOfLines : 1}
-                onChangeText={handleChange(name)}
+                onChangeText={text => setFieldValue(name, text)}
+                value={values[name]}
                 onBlur={() => setFieldTouched(name)}
             />
 

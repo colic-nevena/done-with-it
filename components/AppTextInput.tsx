@@ -17,6 +17,7 @@ interface Props {
     width?: number;
     onChangeText: (text: string) => void;
     onBlur?: () => void;
+    value: string;
 }
 
 export default function AppTextInput(props: Props) {

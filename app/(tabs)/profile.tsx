@@ -1,11 +1,13 @@
+import React from "react";
+import { Link } from "expo-router";
+import { StyleSheet, View, FlatList, Pressable } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "@/components/Icon";
 import ListItem from "@/components/ListItem";
 import ListItemSeparator from "@/components/ListItemSeparator";
 import colors from "@/constants/Colors";
-import { Link } from "expo-router";
-import React from "react";
-import { StyleSheet, View, FlatList, Pressable } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Routes } from "@/constants/Routes";
+import useAuth from "@/auth/useAuth";
 
 const menuItems = [
     {
@@ -14,6 +16,7 @@ const menuItems = [
             name: "format-list-bulleted",
             backgroundColor: colors.primary,
         },
+        targetScreen: Routes.PROFILE
     },
     {
         title: "My Messages",
@@ -21,17 +24,19 @@ const menuItems = [
             name: "email",
             backgroundColor: colors.secondary,
         },
-        targetScreen: "/messages"
+        targetScreen: Routes.MESSAGES
     },
 ];
 
 export default function AccountScreen() {
+    const { user, logOut } = useAuth()
+
     return (
         <SafeAreaView style={styles.screen}>
             <View style={styles.container}>
                 <ListItem
-                    title="Mosh Hamedani"
-                    subtitle="programmingwithmosh@gmail.com"
+                    title={user.name}
+                    subtitle={user.email}
                     image={require("../../assets/images/mosh.jpg")}
                 />
             </View>
@@ -62,6 +67,7 @@ export default function AccountScreen() {
             <ListItem
                 title="Log Out"
                 Icon={<Icon name="logout" backgroundColor="#ffe66d" />}
+                onPress={logOut}
             />
         </SafeAreaView>
     );

@@ -5,7 +5,7 @@ import { FormikTouched } from 'formik';
 
 interface Props {
     error: string;
-    visible: true | FormikTouched<any> | FormikTouched<any>[] | undefined
+    visible: boolean | FormikTouched<any> | FormikTouched<any>[] | undefined
 }
 
 export default function ErrorMessage({ error, visible }: Props) {

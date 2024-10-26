@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Image, View, StyleSheet, SafeAreaView } from 'react-native';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import colors from '@/constants/Colors';
 import AppText from '@/components/AppText';
 import ListItem from '@/components/ListItem';
 import { getListingById } from '@/api/listings';
 import { ListingViewModel } from '@/model/ListingViewModel';
+import { Image } from "react-native-expo-image-cache"
 
 export default function ListingDetailsScreen() {
     const { id } = useLocalSearchParams();
@@ -33,7 +34,7 @@ export default function ListingDetailsScreen() {
 
     return (
         <View>
-            <Image style={styles.image} source={{ uri: listing.images[0].url }} />
+            <Image style={styles.image} uri={listing.images[0].url} preview={{ uri: listing.images[0].thumbnailUrl }} tint="light" />
             <View style={styles.detailsContainer}>
                 <AppText style={styles.title} text={listing.title} />
                 <AppText style={styles.price} text={`$${listing.price}`} />
@@ -44,8 +45,8 @@ export default function ListingDetailsScreen() {
                         subtitle="5 listings"
                     />
                 </View>
-            </View>
-        </View>
+            </View >
+        </View >
     );
 }
 

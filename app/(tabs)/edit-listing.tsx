@@ -10,7 +10,7 @@ import SubmitButton from "@/components/forms/SubmitButton";
 import useLocation from "@/hooks/useLocation";
 import { addListing, CustomResponse } from "@/api/listings";
 import { ListingViewModel } from "@/model/ListingViewModel";
-import UploadScreen from "@/pagesTOBERemoved/UploadScreen";
+import UploadScreen from "@/components/UploadScreen";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -83,7 +83,7 @@ export default function ListingEditScreen() {
   const [uploadVisible, setUploadVisible] = useState<boolean>(false)
   const [progress, setProgress] = useState<number>(0)
 
-  const handleSubmit = async (listing: ListingViewModel) => {
+  const handleSubmit = async (listing: ListingViewModel, { resetForm }: any) => {
     setProgress(0);
     setUploadVisible(true);
     let result: CustomResponse;
@@ -93,12 +93,12 @@ export default function ListingEditScreen() {
       (progress: number) => setProgress(progress)
     );
 
-    console.log(result)
-
     if (result.status !== "success") {
       setUploadVisible(false);
       return alert("Couldn't save the listing.");
     }
+
+    resetForm()
   };
 
   return (

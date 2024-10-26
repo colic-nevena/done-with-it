@@ -23,7 +23,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="add"
+        name="edit-listing"
         options={{
           tabBarButton: () => <NewListingButton href={{ pathname: Routes.ADD_LISTING }} />,
           title: 'Add Listing',
