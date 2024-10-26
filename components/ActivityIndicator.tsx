@@ -19,9 +19,12 @@ function ActivityIndicator({ visible = false }) {
 
 const styles = StyleSheet.create({
     overlay: {
-        justifyContent: "center",
-        alignItems: "center",
-        marginVertical: 100
+        position: "absolute",
+        backgroundColor: "white",
+        height: "100%",
+        opacity: 0.8,
+        width: "100%",
+        zIndex: 1
     },
     loader: {
         width: 250,

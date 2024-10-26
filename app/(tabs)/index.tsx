@@ -19,24 +19,25 @@ export default function ListingsScreen() {
   if (error) return <SafeAreaView><AppText text={error} /></SafeAreaView>
 
   return (
-    <SafeAreaView style={styles.screen}>
-      <ActivityIndicator visible={loading} />
-      <FlatList
-        data={listings}
-        keyExtractor={(listing: ListingViewModel) => listing.id.toString()}
-        renderItem={({ item }) =>
-          <Card
-            title={item.title}
-            subtitle={"$" + item.price}
-            imageUrl={item.images[0].url}
-            thumbnailUrl={item.images[0].thumbnailUrl}
-            href={{
-              pathname: Routes.LISTING_DETAILS,
-              params: { id: item.id.toString() }
-            }}
-          />}
-      />
-    </SafeAreaView>
+    <>    <ActivityIndicator visible={loading} />
+      <SafeAreaView style={styles.screen}>
+        <FlatList
+          data={listings}
+          keyExtractor={(listing: ListingViewModel) => listing.id.toString()}
+          renderItem={({ item }) =>
+            <Card
+              title={item.title}
+              subtitle={"$" + item.price}
+              imageUrl={item.images[0].url}
+              thumbnailUrl={item.images[0].thumbnailUrl}
+              href={{
+                pathname: Routes.LISTING_DETAILS,
+                params: { id: item.id.toString() }
+              }}
+            />}
+        />
+      </SafeAreaView>
+    </>
   )
 }
 

@@ -15,6 +15,8 @@ export default function useApi<T>(apiFunction: Function) {
         } else {
             setError(result.data as string);
         }
+
+        return result
     };
 
     return {
