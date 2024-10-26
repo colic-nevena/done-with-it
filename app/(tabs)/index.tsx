@@ -5,30 +5,22 @@ import { ListingViewModel } from '@/model/ListingViewModel'
 import { Routes } from '@/constants/Routes'
 import AppText from '@/components/AppText'
 import { getListings } from '@/api/listings'
+import ActivityIndicator from '@/components/ActivityIndicator'
+import useApi from '@/hooks/useApi'
 
 export default function ListingsScreen() {
-  const [listings, setListings] = useState<ListingViewModel[]>([])
-  const [error, setError] = useState("")
+  const { request: loadListings, data: listings, error, loading } = useApi<ListingViewModel[]>(getListings);
 
   useEffect(() => {
     loadListings()
   }, [])
-
-  const loadListings = async () => {
-    const listings = await getListings();
-
-    if (listings.status === "success") {
-      setListings(listings.data)
-    } else {
-      setError(listings.data)
-    }
-  };
 
   if (!listings) return <SafeAreaView><AppText text='NOOO DATAAA' /></SafeAreaView>
   if (error) return <SafeAreaView><AppText text={error} /></SafeAreaView>
 
   return (
     <SafeAreaView style={styles.screen}>
+      <ActivityIndicator visible={loading} />
       <FlatList
         data={listings}
         keyExtractor={(listing: ListingViewModel) => listing.id.toString()}
