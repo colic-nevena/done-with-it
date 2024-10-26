@@ -1,11 +1,9 @@
 const Joi = require("joi");
 
-module.exports = schema => (req, res, next) => {
-  console.log("STIGLO NA BEK")
-  console.log(req.body)
+module.exports = (schema) => (req, res, next) => {
+  console.log(req.body);
 
-  console.log("FILES:")
-  console.log(req.files)
+  console.log(req.files);
 
   if (req.body && req.body._parts) {
     const parsedBody = {};
@@ -20,9 +18,7 @@ module.exports = schema => (req, res, next) => {
 
     req.body = parsedBody;
   }
-
-  console.log("PRE NEXT")
-  console.log(req.body)
+  console.log(req.body);
 
   next();
 };

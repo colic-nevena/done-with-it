@@ -1,6 +1,6 @@
 node_modules/
 backend/node_modules
-backend/.env
+
 .expo/
 dist/
 npm-debug.*
@@ -20,3 +20,6 @@ web-build/
 
 expo-env.d.ts
 # @end expo-cli
+
+.env
+backend/.env

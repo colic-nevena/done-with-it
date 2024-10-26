@@ -53,6 +53,7 @@ export async function getListingById(id: number): Promise<CustomResponse> {
     return result;
 }
 
+// Not working
 export const addListing = async (listing: ListingViewModel, onUploadProgress: Function) => {
     let result: CustomResponse;
 
