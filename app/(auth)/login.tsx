@@ -1,14 +1,11 @@
 import React, { useState } from 'react'
 import * as Yup from "yup"
-import { jwtDecode } from 'jwt-decode'
 import { Image, SafeAreaView, StyleSheet } from 'react-native'
 import AppForm from '@/components/forms/AppForm'
 import AppFormField from '@/components/forms/AppFormField'
 import SubmitButton from '@/components/forms/SubmitButton'
 import { login } from '@/api/auth'
 import ErrorMessage from '@/components/forms/ErrorMessage'
-import { User } from '@/model/UserViewModel'
-import authStorage from "../../auth/AuthStorage"
 import useAuth from '@/auth/useAuth'
 
 const validationSchema = Yup.object().shape({
@@ -17,26 +14,17 @@ const validationSchema = Yup.object().shape({
 })
 
 export default function LoginScreen() {
+    const { logIn } = useAuth()
     const [loginFailed, setLoginFailed] = useState<boolean>(false)
-    const { setUser } = useAuth()
 
     const handleSubmit = async (loginInfo: { email: string; password: string }) => {
         const result = await login(loginInfo.email, loginInfo.password)
+
         if (!result.ok) return setLoginFailed(true)
 
         setLoginFailed(false)
 
-        if (result.data) {
-            try {
-                const decoded = jwtDecode(result.data as string) as User
-                setUser(decoded)
-                authStorage.storeToken(result.data as string)
-            } catch (error) {
-                setLoginFailed(true)
-            }
-        } else {
-            setLoginFailed(true)
-        }
+        result.data ? logIn(result.data as string) : setLoginFailed(true)
     }
 
     return (
