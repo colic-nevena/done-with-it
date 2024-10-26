@@ -44,14 +44,6 @@ router.get("/", (req, res) => {
 router.post(
   "/",
   [
-    // Order of these middleware matters.
-    // "upload" should come before other "validate" because we have to handle
-    // multi-part form data. Once the upload middleware from multer applied,
-    // request.body will be populated and we can validate it. This means
-    // if the request is invalid, we'll end up with one or more image files
-    // stored in the uploads folder. We'll need to clean up this folder
-    // using a separate process.
-    // auth,
     upload.array("images", config.get("maxImageCount")),
     validateWith(schema),
     validateCategoryId,

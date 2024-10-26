@@ -39,14 +39,15 @@ export default function ImageInput({ imageUri, onChangeImage }: Props) {
             const result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 quality: 0.5
-            })
+            });
             if (!result.canceled) {
-                onChangeImage(result.assets[0].uri)
+                onChangeImage(result.assets[0].uri);
             }
         } catch (e: any) {
-            console.log("Error reading an image")
+            console.log("Error reading an image", e);
         }
-    }
+    };
+
 
     return (
         <TouchableWithoutFeedback onPress={handlePress}>

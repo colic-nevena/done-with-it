@@ -12,6 +12,7 @@ export interface ListingViewModel {
     price: number;
     categoryId: number;
     userId: number;
+    description?: string;
     location: {
         latitude: number;
         longitude: number;

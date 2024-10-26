@@ -1,11 +1,12 @@
 import { ListingViewModel } from "@/model/ListingViewModel";
 import apiClient from "./client";
+import * as FileSystem from 'expo-file-system';
 
 const LISTING_URL = "/listing"
 const LISTINGS_URL = "/listings"
 const BASE_URL = process.env.EXPO_PUBLIC_BASE_URL
 
-interface CustomResponse {
+export interface CustomResponse {
     status: "success" | "error",
     data: any
 }
@@ -51,3 +52,40 @@ export async function getListingById(id: number): Promise<CustomResponse> {
 
     return result;
 }
+
+export const addListing = async (listing: ListingViewModel, onUploadProgress: Function) => {
+    let result: CustomResponse;
+
+    const data = new FormData();
+    data.append("title", listing.title);
+    data.append("price", listing.price.toString());
+    data.append("categoryId", listing.categoryId.toString());
+    data.append("description", listing.description || "");
+
+    listing.images.forEach((image, index) =>
+        data.append("images", JSON.stringify({
+            name: "image" + index,
+            type: "image/jpeg",
+            uri: image,
+        }))
+    );
+
+    if (listing.location)
+        data.append("location", JSON.stringify(listing.location));
+
+    const response = await apiClient.post(LISTINGS_URL, data, {
+        onUploadProgress: (progress) => {
+            if (progress.total) {
+                return onUploadProgress(progress.loaded / progress.total)
+            }
+        }
+    });
+
+    if (response.ok && response.data) {
+        result = { status: "success", data: "" }
+    } else {
+        result = { status: "error", data: response.problem }
+    }
+
+    return result
+};

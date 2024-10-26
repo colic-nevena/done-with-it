@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { SafeAreaView, StyleSheet } from "react-native";
 import CategoryPickerItem from "@/components/CategoryPickerItem";
@@ -8,12 +8,15 @@ import AppFormPicker from "@/components/forms/AppFormPicker";
 import FormImagePicker from "@/components/forms/FormImagePicker";
 import SubmitButton from "@/components/forms/SubmitButton";
 import useLocation from "@/hooks/useLocation";
+import { addListing, CustomResponse } from "@/api/listings";
+import { ListingViewModel } from "@/model/ListingViewModel";
+import UploadScreen from "@/pagesTOBERemoved/UploadScreen";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
   price: Yup.number().required().min(1).max(10000).label("Price"),
   description: Yup.string().label("Description"),
-  category: Yup.object().required().nullable().label("Category"),
+  categoryId: Yup.number().required().label("Category"),
   images: Yup.array().min(1, "Please select at least 1 image.")
 });
 
@@ -75,20 +78,46 @@ const categories = [
 ];
 
 
-const ListingEditScreen = () => {
+export default function ListingEditScreen() {
   const location = useLocation();
+  const [uploadVisible, setUploadVisible] = useState<boolean>(false)
+  const [progress, setProgress] = useState<number>(0)
+
+  const handleSubmit = async (listing: ListingViewModel) => {
+    setProgress(0);
+    setUploadVisible(true);
+    let result: CustomResponse;
+
+    result = await addListing(
+      { ...listing, location: location || { latitude: -1, longitude: -1 } },
+      (progress: number) => setProgress(progress)
+    );
+
+    console.log(result)
+
+    if (result.status !== "success") {
+      setUploadVisible(false);
+      return alert("Couldn't save the listing.");
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
+
+      <UploadScreen progress={progress} visible={uploadVisible} onDone={() => setUploadVisible(false)} />
+
       <AppForm
         initialValues={{
           title: "",
-          price: "",
+          price: -1,
           description: "",
-          category: null,
-          images: []
+          categoryId: -1,
+          images: [],
+          userId: -1,
+          id: -1,
+          location: { latitude: -1, longitude: -1 }
         }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <FormImagePicker name="images" />
@@ -105,7 +134,7 @@ const ListingEditScreen = () => {
 
         <AppFormPicker
           items={categories}
-          name="category"
+          name="categoryId"
           placeholder="Category"
           width="50%"
           numberOfColumns={3}
@@ -131,5 +160,3 @@ const styles = StyleSheet.create({
     marginVertical: 30
   },
 });
-
-export default ListingEditScreen;

@@ -5,13 +5,13 @@ import { StyleSheet } from 'react-native';
 
 interface Props {
     item: any;
-    onPress: () => void
+    onPress: (item: any) => void
 }
 
 export default function PickerItem({ onPress, item }: Props) {
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
-            <TouchableOpacity onPress={onPress}>
+            <TouchableOpacity onPress={() => onPress(item.value)}>
                 <AppText text={item.label} style={styles.text} />
             </TouchableOpacity>
         </GestureHandlerRootView>

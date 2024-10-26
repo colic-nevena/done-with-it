@@ -1,10 +1,28 @@
 const Joi = require("joi");
 
 module.exports = schema => (req, res, next) => {
-  const result = Joi.validate(req.body, schema);
+  console.log("STIGLO NA BEK")
+  console.log(req.body)
 
-  if (result.error)
-    return res.status(400).send({ error: result.error.details[0].message });
+  console.log("FILES:")
+  console.log(req.files)
+
+  if (req.body && req.body._parts) {
+    const parsedBody = {};
+
+    req.body._parts.forEach(([key, value]) => {
+      try {
+        parsedBody[key] = JSON.parse(value);
+      } catch (e) {
+        parsedBody[key] = value;
+      }
+    });
+
+    req.body = parsedBody;
+  }
+
+  console.log("PRE NEXT")
+  console.log(req.body)
 
   next();
 };

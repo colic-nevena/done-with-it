@@ -9,14 +9,13 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 export interface PickerItem {
     label: string;
     value: number | string;
-    onPress: () => void;
+    onPress: (item: any) => void;
 }
 
 export interface PickerItemComponentProps {
     item: any;
-    onPress: () => void;
+    onPress: (item: any) => void;
 }
-
 
 interface Props {
     icon?: any;
