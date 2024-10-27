@@ -9,7 +9,7 @@ import ActivityIndicator from '@/components/ActivityIndicator'
 import useApi from '@/hooks/useApi'
 
 export default function ListingsScreen() {
-  const { request: loadListings, data: listings, error, loading } = useApi<ListingViewModel[]>(getListings);
+  const { request: loadListings, data: listings, error, loading } = useApi(getListings);
 
   useEffect(() => {
     loadListings()
@@ -19,7 +19,8 @@ export default function ListingsScreen() {
   if (error) return <SafeAreaView><AppText text={error} /></SafeAreaView>
 
   return (
-    <>    <ActivityIndicator visible={loading} />
+    <>
+      <ActivityIndicator visible={loading} />
       <SafeAreaView style={styles.screen}>
         <FlatList
           data={listings}

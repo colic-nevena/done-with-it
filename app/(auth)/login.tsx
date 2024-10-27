@@ -4,9 +4,9 @@ import { Image, SafeAreaView, StyleSheet } from 'react-native'
 import AppForm from '@/components/forms/AppForm'
 import AppFormField from '@/components/forms/AppFormField'
 import SubmitButton from '@/components/forms/SubmitButton'
-import { login } from '@/api/auth'
 import ErrorMessage from '@/components/forms/ErrorMessage'
 import useAuth from '@/auth/useAuth'
+import { apiLogin } from '@/api/auth'
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().required().email().label("Email"),
@@ -18,7 +18,7 @@ export default function LoginScreen() {
     const [loginFailed, setLoginFailed] = useState<boolean>(false)
 
     const handleSubmit = async (loginInfo: { email: string; password: string }) => {
-        const result = await login(loginInfo.email, loginInfo.password)
+        const result = await apiLogin(loginInfo.email, loginInfo.password)
 
         if (!result.ok) return setLoginFailed(true)
 

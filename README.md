@@ -14,6 +14,7 @@ React Native Expo app for selling used things you don't need anymore (tutorial).
 
    ```bash
    cd backend
+   npm install
    node index.js
    ```
 

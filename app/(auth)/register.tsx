@@ -7,9 +7,9 @@ import SubmitButton from '@/components/forms/SubmitButton'
 import { UserRegistration } from '@/model/UserViewModel'
 import usersApi from "../../api/users"
 import useAuth from '@/auth/useAuth'
-import apiAuth from '@/api/auth'
 import useApi from '@/hooks/useApi'
 import ActivityIndicator from '@/components/ActivityIndicator'
+import { apiLogin } from '@/api/auth'
 
 const validationSchema = Yup.object().shape({
     name: Yup.string().required().min(3).label("Name"),
@@ -20,7 +20,7 @@ const validationSchema = Yup.object().shape({
 export default function RegisterScreen() {
     const auth = useAuth()
     const registerApi = useApi(usersApi.register)
-    const loginApi = useApi(apiAuth.login)
+    const loginApi = useApi(apiLogin)
 
     const [error, setError] = useState("")
 
