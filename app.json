@@ -16,6 +16,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package":"com.nevena.donewithit",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/splash.png",
         "backgroundColor": "#e63c4b"
@@ -41,6 +43,12 @@
       "bugsnag": {
         "apiKey": "f7d2151915645d18ee8c7b181529253f"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ab1d1652-9e7e-4d8e-b26e-02d3a87bd903"
     }
   }
 }
