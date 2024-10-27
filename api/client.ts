@@ -1,9 +1,10 @@
 import authStorage from '@/auth/AuthStorage';
 import cache from '@/utils/Cache';
 import { create, ApiResponse } from 'apisauce';
+import settings from "../config/Settings"
 
 const apiClient = create({
-    baseURL: `${process.env.EXPO_PUBLIC_BASE_URL}/api`
+    baseURL: settings.apiUrl
 });
 
 apiClient.addAsyncRequestTransform(async (request: any) => {

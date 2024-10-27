@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
+import logger from "../utils/Logger"
 
 const prefix = "cache-"
 const expiryInMinutes = 5
@@ -13,7 +14,7 @@ export async function store(key: string, value: any) {
 
         await AsyncStorage.setItem(prefix + key, JSON.stringify(item))
     } catch (error) {
-        console.log(error)
+        logger.log(error)
     }
 }
 
@@ -33,7 +34,7 @@ export async function get(key: string) {
 
         return item.value
     } catch (error) {
-        console.log(error)
+        logger.log(error)
     }
 }
 

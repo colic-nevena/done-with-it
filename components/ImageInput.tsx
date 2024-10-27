@@ -3,6 +3,7 @@ import { View, StyleSheet, Image, TouchableWithoutFeedback, Alert } from 'react-
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import colors from '@/constants/Colors';
+import logger from "../utils/Logger"
 
 interface Props {
     imageUri?: string | null;
@@ -43,8 +44,8 @@ export default function ImageInput({ imageUri, onChangeImage }: Props) {
             if (!result.canceled) {
                 onChangeImage(result.assets[0].uri);
             }
-        } catch (e: any) {
-            console.log("Error reading an image", e);
+        } catch (error: any) {
+            logger.log(error)
         }
     };
 

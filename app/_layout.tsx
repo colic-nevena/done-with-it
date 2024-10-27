@@ -7,6 +7,9 @@ import AuthContext from "@/auth/Context";
 import { User } from "@/model/UserViewModel";
 import { useRouter } from "expo-router";
 import authStorage from "@/auth/AuthStorage";
+import logger from "../utils/Logger"
+
+logger.start()
 
 export default function RootLayout() {
   const [user, setUser] = useState<User>({ email: "", name: "", userId: -1 })

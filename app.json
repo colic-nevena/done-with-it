@@ -26,13 +26,20 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": ["expo-router", "expo-secure-store"],
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "@bugsnag/plugin-expo-eas-sourcemaps"
+    ],
     "experiments": {
       "typedRoutes": true
     },
     "extra": {
       "eas": {
         "projectId": "ab1d1652-9e7e-4d8e-b26e-02d3a87bd903"
+      },
+      "bugsnag": {
+        "apiKey": "f7d2151915645d18ee8c7b181529253f"
       }
     }
   }
