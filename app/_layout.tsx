@@ -18,7 +18,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (user.email) {
-      router.replace({ pathname: "/(tabs)" });
+      router.replace({ pathname: "/home" });
     } else {
       router.replace({ pathname: "/(auth)" });
     }
@@ -35,9 +35,7 @@ export default function RootLayout() {
         <OfflineNotice />
         <Stack>
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="details/listing-details" options={{ title: "" }} />
-          <Stack.Screen name="messages/index" options={{ title: "Messages" }} />
+          <Stack.Screen name="home" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
       </ThemeProvider>

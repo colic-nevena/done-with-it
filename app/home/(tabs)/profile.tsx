@@ -37,7 +37,7 @@ export default function AccountScreen() {
                 <ListItem
                     title={user.name}
                     subtitle={user.email}
-                    image={require("../../assets/images/mosh.jpg")}
+                    image={require("../../../assets/images/mosh.jpg")}
                 />
             </View>
             <View style={styles.container}>

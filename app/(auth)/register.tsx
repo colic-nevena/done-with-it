@@ -28,11 +28,13 @@ export default function RegisterScreen() {
         const result = await registerApi.request(userInfo)
 
         if (!result.ok) {
-            if (result.data) setError(result.data.toString())
+            if (result.data) {
+                setError(result.data.toString())
+            }
             else {
                 setError("Unexpected error occurred")
-                console.log(result)
             }
+
             return
         }
 

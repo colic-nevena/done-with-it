@@ -40,7 +40,7 @@ export default function ListingDetailsScreen() {
                 <AppText style={styles.price} text={`$${listing.price}`} />
                 <View style={styles.userContainer}>
                     <ListItem
-                        image={require("../../assets/images/mosh.jpg")}
+                        image={require("../../../assets/images/mosh.jpg")}
                         title="Mosh Hamedani"
                         subtitle="5 listings"
                     />
